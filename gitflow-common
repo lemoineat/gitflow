@@ -177,8 +177,11 @@ gitflow_has_develop_configured() {
 
 gitflow_has_prefixes_configured() {
 	git config --get gitflow.prefix.feature >/dev/null 2>&1     && \
+	git config --get gitflow.prefix.beta >/dev/null 2>&1     && \
+	git config --get gitflow.prefix.update >/dev/null 2>&1     && \
 	git config --get gitflow.prefix.release >/dev/null 2>&1     && \
 	git config --get gitflow.prefix.hotfix >/dev/null 2>&1      && \
+	git config --get gitflow.prefix.minor >/dev/null 2>&1      && \
 	git config --get gitflow.prefix.support >/dev/null 2>&1     && \
 	git config --get gitflow.prefix.versiontag >/dev/null 2>&1
 }

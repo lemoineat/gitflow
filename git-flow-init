@@ -231,8 +231,11 @@ cmd_default() {
 	# finally, ask the user for naming conventions (branch and tag prefixes)
 	if flag force || \
 	   ! git config --get gitflow.prefix.feature >/dev/null 2>&1 || 
+	   ! git config --get gitflow.prefix.beta >/dev/null 2>&1 || 
+	   ! git config --get gitflow.prefix.update >/dev/null 2>&1 || 
 	   ! git config --get gitflow.prefix.release >/dev/null 2>&1 || 
 	   ! git config --get gitflow.prefix.hotfix >/dev/null 2>&1 || 
+	   ! git config --get gitflow.prefix.minor >/dev/null 2>&1 || 
 	   ! git config --get gitflow.prefix.support >/dev/null 2>&1 || 
 	   ! git config --get gitflow.prefix.versiontag >/dev/null 2>&1; then
 		echo
@@ -253,6 +256,34 @@ cmd_default() {
 		[ "$answer" = "-" ] && prefix= || prefix=${answer:-$default_suggestion}
 		git_do config gitflow.prefix.feature "$prefix"
 	fi
+
+
+	# Beta branches
+	if ! git config --get gitflow.prefix.beta >/dev/null 2>&1 || flag force; then
+		default_suggestion=$(git config --get gitflow.prefix.beta || echo beta/)
+		printf "Beta branches? [$default_suggestion] "
+		if noflag defaults; then
+			read answer
+		else
+			printf "\n"
+		fi
+		[ "$answer" = "-" ] && prefix= || prefix=${answer:-$default_suggestion}
+		git_do config gitflow.prefix.beta "$prefix"
+	fi
+
+	# Update branches
+	if ! git config --get gitflow.prefix.update >/dev/null 2>&1 || flag force; then
+		default_suggestion=$(git config --get gitflow.prefix.update || echo update/)
+		printf "Update branches? [$default_suggestion] "
+		if noflag defaults; then
+			read answer
+		else
+			printf "\n"
+		fi
+		[ "$answer" = "-" ] && prefix= || prefix=${answer:-$default_suggestion}
+		git_do config gitflow.prefix.update "$prefix"
+	fi
+
 
 	# Release branches
 	if ! git config --get gitflow.prefix.release >/dev/null 2>&1 || flag force; then
@@ -279,6 +310,20 @@ cmd_default() {
 		fi
 		[ "$answer" = "-" ] && prefix= || prefix=${answer:-$default_suggestion}
 		git_do config gitflow.prefix.hotfix "$prefix"
+	fi
+
+
+	# Minor branches
+	if ! git config --get gitflow.prefix.minor >/dev/null 2>&1 || flag force; then
+		default_suggestion=$(git config --get gitflow.prefix.minor || echo minor/)
+		printf "Minor branches? [$default_suggestion] "
+		if noflag defaults; then
+			read answer
+		else
+			printf "\n"
+		fi
+		[ "$answer" = "-" ] && prefix= || prefix=${answer:-$default_suggestion}
+		git_do config gitflow.prefix.minor "$prefix"
 	fi
 
 
