@@ -249,7 +249,8 @@ cmd_finish() {
 		# TODO: Actually, accounting for 'git describe' pays, so we should
 		# ideally git merge --no-ff $tagname here, instead!
 		if noflag squash; then
-			git_do merge --no-ff "$BRANCH" || \
+			#git_do merge --no-ff "$BRANCH" || \
+			git_do merge -m "Merge branch $BRANCH" --no-ff "$BRANCH" || \
 				die "There were merge conflicts."
 				# TODO: What do we do now?
 		else
